@@ -1,4 +1,4 @@
-import util
+import bojtomd
 
 def main():
     print('[ Input problem id. ]')
@@ -10,9 +10,13 @@ def main():
             print('[ Bye ! ]')
             break
 
-        status_code, data = util.crawl(problem_id)
+        status_code, data = bojtomd.fetch_solvedac(problem_id)
         if status_code == 200:
             print('[ Creating Markdown .. ]')
+            path = bojtomd.write(data)
+            print('[ Complte ! ]')
+            print('[ %s ]' % path)
+            break
         else:
             print('[ Invalid problem id. ]')
             print('[ Please input valid problem id. ]')
