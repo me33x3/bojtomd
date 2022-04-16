@@ -43,7 +43,7 @@ def write(data):
     file.write('<center>\n\n')
     file.write('|시간 제한|메모리 제한|\n')
     file.write('|:---:|:---:|\n')
-    file.write('|%s|%s|\n' % (problem_info[0].text, problem_info[1].text))
+    file.write('|%s|%s|\n\n' % (problem_info[0].text, problem_info[1].text))
     file.write('</center>\n\n')
 
     # 문제
@@ -85,12 +85,12 @@ def write(data):
     # 힌트
 
     # 알고리즘 분류
-    print(data['tags'])
-
     file.write('### 알고리즘 분류\n\n')
     file.write('***\n\n')
     for i in range(len(data['tags'])):
         file.write('* %s\n' % data['tags'][i]['displayNames'][1]['name'])
+
+    # 시간 제한
 
     file.close()
 
