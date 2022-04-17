@@ -13,14 +13,21 @@ def get_content(tag):
     return content
 
 def get_p(child):
-    text = ''
-    for line in str(child).split('\n'):
-        text += line[3:-4]
+    # 이미지
+    if child.find('img'):
+        if 'http' not in child.img['src']:
+            child.img['src'] = 'https://www.acmicpc.net' + child.img['src']
+        print(child.img)
+
+    text = str(child)
+    if text[:3] == '<p>':
+        text = text[3:-4]
 
     return text
 
 def get_pre(child):
     text = '\n'.join([line.rstrip() for line in child.text.split('\n')])
+
     if text[-1] != '\n':
         text += '\n'
 
