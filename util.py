@@ -11,6 +11,8 @@ def get_content(tag):
             content += get_ul(child) + '\n\n'
         elif child.name == 'table':
             content += get_table(child) + '\n\n'
+        elif child.name == 'blockquote':
+            content += get_blockquote(child) + '\n\n'
 
     return content
 
@@ -28,8 +30,6 @@ def get_p(child):
         style = child['style']
         if 'center' in style:
             text = '<div align="center">%s</div>' % text[text.index('>') + 1:-4]
-
-    print(text)
 
     return text
 
@@ -59,3 +59,6 @@ def get_ul(child):
 
 def get_table(child):
     return '\n'.join([line for line in str(child).split('\n')])
+
+def get_blockquote(child):
+    return str(child)
