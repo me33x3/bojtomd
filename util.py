@@ -17,7 +17,6 @@ def get_p(child):
     if child.find('img'):
         if 'http' not in child.img['src']:
             child.img['src'] = 'https://www.acmicpc.net' + child.img['src']
-        print(child.img)
 
     text = str(child)
     if text[:3] == '<p>':

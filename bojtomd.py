@@ -49,6 +49,8 @@ def write(data):
     # 문제
     problem_description = soup.select_one("#problem_description")
 
+    # print(problem_description)
+
     file.write('### 문제\n\n')
     file.write('***\n\n')
     file.write(util.get_content(problem_description))
@@ -89,8 +91,16 @@ def write(data):
     file.write('***\n\n')
     for i in range(len(data['tags'])):
         file.write('* %s\n' % data['tags'][i]['displayNames'][1]['name'])
+    file.write('\n')
 
     # 시간 제한
+    problem_time_limit = soup.select_one("#problem-time-limit")
+
+    if problem_time_limit:
+        file.write('### 시간 제한\n\n')
+        file.write('***\n\n')
+        file.write(util.get_content(problem_time_limit))
+        print(problem_time_limit)
 
     file.close()
 
