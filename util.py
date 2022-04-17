@@ -44,16 +44,21 @@ def get_pre(child):
     return '```%s```' % text
 
 def get_ol(child):
-    text = ''
-    for i, line in enumerate(child.text.lstrip().rstrip().split('\n')):
-        text += '%d. %s\n' % (i + 1, line)
+    text, num = '', 1
+    for line in child:
+        temp = str(line).lstrip().rstrip()
+        if temp:
+            text += '%d. %s\n' % (num, temp[4:-5])
+            num += 1
 
     return text.rstrip()
 
 def get_ul(child):
     text = ''
-    for line in child.text.lstrip().rstrip().split('\n'):
-        text += '* %s\n' % line
+    for line in child:
+        temp = str(line).lstrip().rstrip()
+        if temp:
+            text += '* %s\n' % temp[4:-5]
 
     return text.rstrip()
 
