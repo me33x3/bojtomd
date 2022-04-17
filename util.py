@@ -20,7 +20,7 @@ def get_p(child):
         if 'http' not in child.img['src']:
             child.img['src'] = 'https://www.acmicpc.net' + child.img['src']
 
-    text = str(child)
+    text = str(child).replace(' ', ' ')
     if text[:3] == '<p>':
         text = text[3:-4]
     else:
@@ -28,6 +28,8 @@ def get_p(child):
         style = child['style']
         if 'center' in style:
             text = '<div align="center">%s</div>' % text[text.index('>') + 1:-4]
+
+    print(text)
 
     return text
 
