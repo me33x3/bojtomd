@@ -9,6 +9,8 @@ def get_content(tag):
             content += get_ol(child) + '\n\n'
         elif child.name == 'ul':
             content += get_ul(child) + '\n\n'
+        elif child.name == 'table':
+            content += get_table(child) + '\n\n'
 
     return content
 
@@ -45,3 +47,6 @@ def get_ul(child):
         text += '* %s\n' % line
 
     return text.rstrip()
+
+def get_table(child):
+    return '\n'.join([line for line in str(child).split('\n')])
