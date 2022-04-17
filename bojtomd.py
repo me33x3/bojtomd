@@ -41,16 +41,14 @@ def write(data):
     # 문제 정보
     problem_info = soup.select('#problem-info > tbody > tr > td')
 
-    file.write('<center>\n\n')
+    file.write('<div align="center">\n\n')
     file.write('|시간 제한|메모리 제한|\n')
     file.write('|:---:|:---:|\n')
     file.write('|%s|%s|\n\n' % (problem_info[0].text, problem_info[1].text))
-    file.write('</center>\n\n')
+    file.write('</div>\n\n')
 
     # 문제
     problem_description = soup.select_one("#problem_description")
-
-    # print(problem_description)
 
     file.write('### 문제\n\n')
     file.write('***\n\n')

@@ -23,6 +23,11 @@ def get_p(child):
     text = str(child)
     if text[:3] == '<p>':
         text = text[3:-4]
+    else:
+        # 가운데 정렬
+        style = child['style']
+        if 'center' in style:
+            text = '<div align="center">%s</div>' % text[text.index('>') + 1:-4]
 
     return text
 
