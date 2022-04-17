@@ -16,6 +16,7 @@ def main():
             path = bojtomd.write(data)
             print('[ Complte ! ]')
             print('[ %s ]' % path)
+
             break
         else:
             print('[ Invalid problem id. ]')
