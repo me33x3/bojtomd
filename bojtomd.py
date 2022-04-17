@@ -72,6 +72,11 @@ def write(data):
     # 제한
     problem_limit = soup.select_one("#problem_limit")
 
+    if problem_limit.text.strip():
+        file.write('### 제한\n\n')
+        file.write('***\n\n')
+        file.write(util.get_content(problem_limit))
+
     # 예제
     problem_sample = soup.select(".sampledata")
 
@@ -85,6 +90,12 @@ def write(data):
     file.write('\n')
 
     # 힌트
+    problem_hint = soup.select_one("#problem_hint")
+
+    if problem_hint.text.strip():
+        file.write('### 힌트\n\n')
+        file.write('***\n\n')
+        file.write(util.get_content(problem_hint))
 
     # 알고리즘 분류
     file.write('### 알고리즘 분류\n\n')
@@ -100,7 +111,6 @@ def write(data):
         file.write('### 시간 제한\n\n')
         file.write('***\n\n')
         file.write(util.get_content(problem_time_limit))
-        print(problem_time_limit)
 
     file.close()
 
