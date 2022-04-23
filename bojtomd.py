@@ -99,8 +99,12 @@ def write(data):
     # 알고리즘 분류
     file.write('### 알고리즘 분류\n\n')
     file.write('***\n\n')
-    for i in range(len(data['tags'])):
-        file.write('* %s\n' % data['tags'][i]['displayNames'][1]['name'])
+
+    for tag in data['tags']:
+        for displayName in tag['displayNames']:
+            if displayName['language'] == 'ko':
+                file.write('* %s\n' % displayName['name'])
+                break
     file.write('\n')
 
     # 시간 제한
