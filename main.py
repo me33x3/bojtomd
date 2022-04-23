@@ -1,9 +1,10 @@
+import os
 import bojtomd
 
 def main():
-    print('[ Input problem id. ]')
-
     while True:
+        print('[ Input problem id. ]')
+        print('[ Exit -> 0 ]')
         problem_id = int(input())
 
         if problem_id == 0:
@@ -15,13 +16,13 @@ def main():
             print('[ Creating Markdown .. ]')
             path = bojtomd.write(data)
             print('[ Complte ! ]')
-            print('[ %s ]' % path)
-
-            break
+            print('[ %s ]\n' % path)
         else:
             print('[ Invalid problem id. ]')
             print('[ Please input valid problem id. ]')
             print('[ Exit -> 0 ]')
+
+    os.system('pause')
 
 if __name__ == "__main__":
     main()
