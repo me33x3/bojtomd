@@ -82,7 +82,6 @@ def write(data):
     if problem_subtask:
         file.write('### 서브태스크\n\n')
         file.write('***\n\n')
-        print("서브태스크 !!")
         file.write(util.get_content(problem_subtask))
 
     # 예제

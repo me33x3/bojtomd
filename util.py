@@ -12,7 +12,6 @@ def get_content(tag):
         elif child.name == 'ul':
             content += get_ul(child) + '\n\n'
         elif child.name == 'table':
-            print(child)
             content += get_table(child) + '\n\n'
         elif child.name == 'blockquote':
             content += get_blockquote(child) + '\n\n'
