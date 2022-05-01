@@ -76,6 +76,15 @@ def write(data):
         file.write('***\n\n')
         file.write(util.get_content(problem_limit))
 
+    # 서브태스크
+    problem_subtask = soup.select_one("#problem_subtask")
+
+    if problem_subtask:
+        file.write('### 서브태스크\n\n')
+        file.write('***\n\n')
+        print("서브태스크 !!")
+        file.write(util.get_content(problem_subtask))
+
     # 예제
     problem_sample = soup.select(".sampledata")
 

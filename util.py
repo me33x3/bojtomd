@@ -1,7 +1,9 @@
 def get_content(tag):
     content = ''
     for child in tag:
-        if child.name == 'p':
+        if child.name == 'div':
+            content += get_div(child)
+        elif child.name == 'p':
             content += get_p(child) + '\n\n'
         elif child.name == 'pre':
             content += get_pre(child) + '\n\n'
@@ -10,11 +12,15 @@ def get_content(tag):
         elif child.name == 'ul':
             content += get_ul(child) + '\n\n'
         elif child.name == 'table':
+            print(child)
             content += get_table(child) + '\n\n'
         elif child.name == 'blockquote':
             content += get_blockquote(child) + '\n\n'
 
     return content
+
+def get_div(child):
+    return get_content(child)
 
 def get_p(child):
     # 이미지
