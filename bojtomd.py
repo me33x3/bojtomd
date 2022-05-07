@@ -84,17 +84,17 @@ def write(data):
         file.write('***\n\n')
         file.write(util.get_content(problem_subtask))
 
-    # 예제
-    problem_sample = soup.select(".sampledata")
+   # 예제
+    for i in range(len(problem_sample) // 2):
+        problem_sample_explain = soup.select("#problem_sample_explain_%d" % (i + 1))
 
-    file.write('### 예제\n\n')
-    file.write('***\n\n')
-    file.write('|입력|출력|\n')
-    file.write('|:---|:---|\n')
+        file.write('### 예제 %d\n\n' % (i + 1))
+        file.write('***\n\n')
+        file.write(util.get_pre(problem_sample[i * 2]) + '\n\n')
+        file.write(util.get_pre(problem_sample[i * 2 + 1]) + '\n\n')
 
-    for i in range(0, len(problem_sample), 2):
-        file.write('|%s|%s|\n' % (problem_sample[i].text.rstrip().replace('\r\n', '<br/>').replace('\n', '<br/>'), problem_sample[i+1].text.rstrip().replace('\r\n', '<br/>').replace('\n', '<br/>')))
-    file.write('\n')
+        if problem_sample_explain:
+            file.write(util.get_content(problem_sample_explain))
 
     # 힌트
     problem_hint = soup.select_one("#problem_hint")

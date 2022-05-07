@@ -51,7 +51,8 @@ def get_pre(child):
 def get_ol(child):
     text, num = '', 1
     for line in child:
-        temp = str(line).lstrip().rstrip()
+        temp = str(line).lstrip().rstrip().replace(' ', ' ')
+
         if temp:
             text += '%d. %s\n' % (num, temp[4:-5])
             num += 1
@@ -61,7 +62,7 @@ def get_ol(child):
 def get_ul(child):
     text = ''
     for line in child:
-        temp = str(line).lstrip().rstrip()
+        temp = str(line).lstrip().rstrip().replace(' ', ' ')
         if temp:
             text += '* %s\n' % temp[4:-5]
 
