@@ -85,6 +85,8 @@ def write(data):
         file.write(util.get_content(problem_subtask))
 
    # 예제
+    problem_sample = soup.select(".sampledata")
+
     for i in range(len(problem_sample) // 2):
         problem_sample_explain = soup.select("#problem_sample_explain_%d" % (i + 1))
 
@@ -98,9 +100,10 @@ def write(data):
 
     # 힌트
     problem_hint = soup.select_one("#problem_hint")
+    hint_title = soup.select_one("#hint .headline").text.strip()
 
     if problem_hint.text.strip():
-        file.write('### 힌트\n\n')
+        file.write('### %s\n\n' % hint_title)
         file.write('***\n\n')
         file.write(util.get_content(problem_hint))
 
