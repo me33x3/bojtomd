@@ -71,7 +71,6 @@ def get_ol(child, depth):
             elif sub.name == 'ul':
                 text += get_ul(sub, depth + 1)
             else:
-                print(chr(num), sub)
                 text += '\t' * depth + '%c. %s  \n' % (chr(num), sub.strip().replace(' ', ' '))
                 num += 1
 
