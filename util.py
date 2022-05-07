@@ -8,9 +8,9 @@ def get_content(tag):
         elif child.name == 'pre':
             content += get_pre(child) + '\n\n'
         elif child.name == 'ol':
-            content += get_ol(child) + '\n\n'
+            content += get_ol(child, 0) + '\n\n'
         elif child.name == 'ul':
-            content += get_ul(child) + '\n\n'
+            content += get_ul(child, 0) + '\n\n'
         elif child.name == 'table':
             content += get_table(child) + '\n\n'
         elif child.name == 'blockquote':
@@ -48,23 +48,51 @@ def get_pre(child):
 
     return '```%s```' % text
 
-def get_ol(child):
-    text, num = '', 1
-    for line in child:
-        temp = str(line).lstrip().rstrip().replace(' ', ' ')
+def get_ol(child, depth):
+    text, num = '', ord('1')
 
-        if temp:
-            text += '%d. %s\n' % (num, temp[4:-5])
-            num += 1
+    style = get_style(child)
+    if 'list-style-type' in style:
+        type = style['list-style-type']
+        if type == 'lower-alpha':
+            num = ord('a')
+        elif type == 'upper-alpha':
+            num = ord('A')
+
+    for line in child:
+        if line.text.strip() == '':
+            continue
+
+        for sub in line:
+            if sub.text.strip() == '':
+                continue
+            elif sub.name == 'ol':
+                text += get_ol(sub, depth + 1)
+            elif sub.name == 'ul':
+                text += get_ul(sub, depth + 1)
+            else:
+                print(chr(num), sub)
+                text += '\t' * depth + '%c. %s  \n' % (chr(num), sub.strip().replace(' ', ' '))
+                num += 1
 
     return text.rstrip()
 
-def get_ul(child):
+def get_ul(child, depth):
     text = ''
+
     for line in child:
-        temp = str(line).lstrip().rstrip().replace(' ', ' ')
-        if temp:
-            text += '* %s\n' % temp[4:-5]
+        if line.text.strip() == '':
+            continue
+
+        for sub in line:
+            if sub.text.strip() == '':
+                continue
+            elif sub.name == 'ol':
+                text += get_ol(sub, depth + 1)
+            elif sub.name == 'ul':
+                text += get_ul(sub, depth + 1)
+            else:
+                text += '\t' * depth + '* %s  \n' % sub.strip().replace(' ', ' ')
 
     return text.rstrip()
 
@@ -73,3 +101,11 @@ def get_table(child):
 
 def get_blockquote(child):
     return str(child)
+
+def get_style(tag):
+    style = {}
+    if 'style' in tag.attrs:
+        for attr in tag['style'].split(';')[:-1]:
+            k, v = attr.split(':')
+            style[k] = v
+    return style
