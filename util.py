@@ -63,16 +63,17 @@ def get_ol(child, depth):
         if line.text.strip() == '':
             continue
 
-        for sub in line:
-            if sub.text.strip() == '':
-                continue
-            elif sub.name == 'ol':
-                text += get_ol(sub, depth + 1)
-            elif sub.name == 'ul':
-                text += get_ul(sub, depth + 1)
-            else:
-                text += '\t' * depth + '%c. %s  \n' % (chr(num), sub.strip().replace(' ', ' '))
-                num += 1
+        if len(line) > 1:
+            for sub in line:
+                if sub.name == 'ol':
+                    text += get_ol(sub, depth + 1)
+                elif sub.name == 'ul':
+                    text += get_ul(sub, depth + 1)
+                elif sub.text.strip() != '':
+                    text += '\t' * depth + '%c. %s  \n' % (chr(num), str(sub).strip().replace(' ', ' ')[4:])
+        else:
+            text += '\t' * depth + '%c. %s  \n' % (chr(num), str(line).strip().replace(' ', ' ')[4:-5])
+            num += 1
 
     return text.rstrip()
 
@@ -83,15 +84,16 @@ def get_ul(child, depth):
         if line.text.strip() == '':
             continue
 
-        for sub in line:
-            if sub.text.strip() == '':
-                continue
-            elif sub.name == 'ol':
-                text += get_ol(sub, depth + 1)
-            elif sub.name == 'ul':
-                text += get_ul(sub, depth + 1)
-            else:
-                text += '\t' * depth + '* %s  \n' % sub.strip().replace(' ', ' ')
+        if len(line) > 1:
+            for sub in line:
+                if sub.name == 'ol':
+                    text += get_ol(sub, depth + 1)
+                elif sub.name == 'ul':
+                    text += get_ul(sub, depth + 1)
+                elif sub.text.strip() != '':
+                    text += '\t' * depth + '* %s  \n' % str(sub).strip().replace(' ', ' ')[4:]
+        else:
+            text += '\t' * depth + '* %s  \n' % str(line).strip().replace(' ', ' ')[4:-5]
 
     return text.rstrip()
 
