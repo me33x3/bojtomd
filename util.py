@@ -63,17 +63,23 @@ def get_ol(child, depth):
         if line.text.strip() == '':
             continue
 
+        sub_text = ''
+        has_sub = False
+
         if len(line) > 1:
             for sub in line:
                 if sub.name == 'ol':
-                    text += get_ol(sub, depth + 1)
+                    sub_text += get_ol(sub, depth + 1)
+                    has_sub = True
                 elif sub.name == 'ul':
-                    text += get_ul(sub, depth + 1)
-                elif sub.text.strip() != '':
-                    text += '\t' * depth + '%c. %s  \n' % (chr(num), str(sub).strip().replace(' ', ' ')[4:])
+                    sub_text += get_ul(sub, depth + 1)
+                    has_sub = True
+
+        if has_sub:
+            text += '\t' * depth + '%c. %s  \n' % (chr(num), str(line).split('\n')[0].strip().replace(' ', ' ')[4:]) + sub_text
         else:
             text += '\t' * depth + '%c. %s  \n' % (chr(num), str(line).strip().replace(' ', ' ')[4:-5])
-            num += 1
+        num += 1
 
     return text.rstrip()
 
@@ -84,14 +90,20 @@ def get_ul(child, depth):
         if line.text.strip() == '':
             continue
 
+        sub_text = ''
+        has_sub = False
+
         if len(line) > 1:
             for sub in line:
                 if sub.name == 'ol':
-                    text += get_ol(sub, depth + 1)
+                    sub_text += get_ol(sub, depth + 1)
+                    has_sub = True
                 elif sub.name == 'ul':
-                    text += get_ul(sub, depth + 1)
-                elif sub.text.strip() != '':
-                    text += '\t' * depth + '* %s  \n' % str(sub).strip().replace(' ', ' ')[4:]
+                    sub_text += get_ul(sub, depth + 1)
+                    has_sub = True
+
+        if has_sub:
+            text += '\t' * depth + '* %s  \n' % str(line).split('\n')[0].strip().replace(' ', ' ')[4:-5] + sub_text
         else:
             text += '\t' * depth + '* %s  \n' % str(line).strip().replace(' ', ' ')[4:-5]
 
