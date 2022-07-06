@@ -41,9 +41,12 @@ def get_p(child):
 def get_pre(child):
     text = '\n'.join([line.rstrip() for line in child.text.split('\n')])
 
-    if text[0] != '\n':
-        text = '\n' + text
-    if text[-1] != '\n':
+    if text:
+        if text[0] != '\n':
+            text = '\n' + text
+        if text[-1] != '\n':
+            text += '\n'
+    else:
         text += '\n'
 
     return '```%s```' % text
