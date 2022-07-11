@@ -108,7 +108,10 @@ def get_ul(child, depth):
         if has_sub:
             text += '\t' * depth + '* %s  \n' % str(line).split('\n')[0].strip().replace(' ', ' ')[4:-5] + sub_text
         else:
-            text += '\t' * depth + '* %s  \n' % str(line).strip().replace(' ', ' ')[4:-5]
+            if line.name == 'li':
+                text += '\t' * depth + '* %s  \n' % str(line).strip().replace(' ', ' ')[4:-5]
+            elif line.name == 'p':
+                text += get_p(line)
 
     return text.rstrip()
 
